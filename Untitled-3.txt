@@ -1,0 +1,39 @@
+-- database: c:\Users\U!\Desktop\bd\practica5.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "table-name";
+
+DROP TABLE Students;
+
+DROP VIEW Aprobados;
+
+DROP TRIGGER approved_trigger;
+
+CREATE TABLE Students (
+ID INTEGER PRIMARY KEY,
+Name varchar(255),
+Grade INTEGER,
+Aprobado boolean DEFAULT false);
+
+INSERT INTO Students (Name, Grade)
+VALUES ("Juan Fernandez", 100),
+("Carol solis", 80),
+("Ana Marín", 70),
+("Luis Alfaro", 40),
+("Alejandro Alfaro", 75);
+
+
+CREATE VIEW Aprobados AS
+SELECT Name, Grade
+FROM Students
+WHERE Grade > 80;
+
+
+CREATE TRIGGER approved_trigger UPDATE OF Grade ON Students
+BEGIN
+UPDATE Students SET Aprobado = TRUE WHERE Grade >= 80;
+END;
+
+
+UPDATE Students SET Grade = 81 WHERE ID = 5

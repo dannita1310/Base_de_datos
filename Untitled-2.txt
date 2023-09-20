@@ -1,0 +1,71 @@
+-- database: c:\Users\U!\Desktop\bd\practica4.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "table-name";
+
+
+CREATE TABLE Employee (
+id INTEGER PRIMARY KEY,
+name VARCHAR(50),
+monthsWorking INTEGER
+);
+
+INSERT INTO Employee (name, monthsWorking)
+VALUES ("Juan Fernandez", 10),
+("Carol solis", 14),
+("Ana Marín", 13),
+("Luis Alfaro", 12);
+
+DROP TABLE Employee;
+
+CREATE TABLE Salary (
+id INTEGER PRIMARY KEY,
+Salary VARCHAR(50),
+EmployeeId INTEGER,
+FOREIGN KEY (EmployeeId) REFERENCES Employee (id)
+);
+
+
+
+INSERT INTO Salary (Salary, EmployeeId)
+VALUES (500, 1),
+(650, 2),
+(400, 3),
+(450, 4);
+
+DROP TABLE Salary;
+
+CREATE TABLE Sales (
+id INTEGER PRIMARY KEY,
+Sales VARCHAR(50),
+EmployeeId INTEGER,
+FOREIGN KEY (EmployeeId) REFERENCES Employee (id)
+);
+
+
+INSERT INTO Sales (Sales, EmployeeId)
+VALUES (20, 1),
+(60, 2),
+(50, 3),
+(45, 4);
+
+DROP TABLE Sales;
+
+
+SELECT * FROM Employee WHERE id IN (
+    SELECT EmployeeId FROM Sales WHERE Sales >= 50
+);
+
+SELECT * FROM Employee WHERE id IN (
+    SELECT EmployeeId FROM Salary WHERE Salary < 500 AND monthsWorking > 12
+);
+
+
+UPDATE Salary SET salary = Salary + 100 WHERE id IN (
+        SELECT id FROM Employee WHERE monthsWorking > 12
+);
+
+DELETE FROM Employee WHERE id IN ( 
+    SELECT id FROM Sales WHERE Sales < 50
+);

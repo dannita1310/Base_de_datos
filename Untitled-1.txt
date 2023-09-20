@@ -1,0 +1,89 @@
+-- database: c:\Users\U!\Desktop\bd\practica3.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "Students";
+--1
+SELECT Students.name, Courses.code
+FROM Students
+INNER JOIN Courses
+ON Students.id = Courses.studentId;
+
+--2 
+SELECT Students.name,Courses.code,Students.grade
+FROM Students
+LEFT JOIN Courses ON Students.id = Courses.id;
+
+--3
+SELECT Students.name, Courses.code
+FROM Students
+RIGHT JOIN Courses ON Students.id = Courses.id;
+
+--4
+SELECT count(id) AS "calificaciones iguales", grade
+FROM Students 
+GROUP BY grade;
+
+--5
+SELECT count(grade) "cantidad de estudientes", grade
+FROM Students
+GROUP BY grade
+HAVING count(*)>1;
+
+--6
+SELECT Teachers.name
+FROM Teachers
+UNION 
+SELECT Students.name FROM Students;
+
+--7
+SELECT *FROM Teachers t
+WHERE EXISTS(
+    SELECT 1
+    FROM Students s
+    WHERE s.name = t.name
+);
+
+--8
+SELECT *FROM Teachers t
+WHERE NOT EXISTS(
+    SELECT 1
+    FROM Students s
+    WHERE s.name = t.name
+);
+
+--9
+SELECT *FROM Students WHERE name LIKE "M%";
+
+--10
+SELECT *FROM Students WHERE name LIKE "%o";
+
+--11
+SELECT *FROM Teachers WHERE name LIKE "r%o";
+
+--12
+SELECT *FROM Students WHERE name LIKE "%ar%";
+
+--13
+SELECT avg(grade) FROM Students;
+
+--14
+SELECT count (name) FROM Students;
+
+--15
+SELECT max(grade) FROM Students;
+
+--16
+SELECT name, max(grade) FROM Students;
+
+--17
+SELECT min(grade) FROM Students;
+
+--18
+SELECT name, min(grade) FROM Students;
+
+--19 
+SELECT grade FROM Students  ORDER BY grade DESC LIMIT 3;
+
+--20
+SELECT grade FROM Students  ORDER BY grade ASC LIMIT 3;
