@@ -1,0 +1,42 @@
+-- database: c:\Users\U!\Desktop\bd\practica6.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "table-name";
+
+CREATE TABLE Clients (
+id INTEGER PRIMARY KEY,
+name VARCHAL (50),
+age INTEGER,
+email VARCHAL (80)
+);
+
+CREATE TABLE Accounts (
+    id INTEGER PRIMARY KEY,
+    CLientId INTEGER,
+    BALANCE INTEGER,
+    FOREIGN KEY (ClientId) REFERENCES Clients(id)
+);
+
+CREATE TABLE AccountsTypes(
+ id INTEGER PRIMARY KEY,
+ AccountId INTEGER,
+ Type INTEGER,
+ FOREIGN KEY (accountId) REFERENCES Accounts(id)
+);
+
+CREATE TABLE Transaccions(
+ id INTEGER PRIMARY KEY,
+ AccountId INTEGER,
+ Type INTEGER,
+ amount INTEGER, 
+ date DATE,
+ FOREIGN KEY (accountId) REFERENCES Accounts(id)
+);
+
+CREATE TABLE TransaccionsTypes(
+ TypeId INTEGER PRIMARY KEY,
+ TransaccionId INTEGER,
+ Type INTEGER,
+ FOREIGN KEY (transaccionId) REFERENCES Transaccions(id)
+);
